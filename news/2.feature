@@ -1,1 +1,0 @@
-Implement fixture to validate a string against a json schema [@ericof]
