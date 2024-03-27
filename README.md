@@ -11,7 +11,8 @@
 
 [![PyPI - Plone Versions](https://img.shields.io/pypi/frameworkversions/plone/pytest-jsonschema)](https://pypi.org/project/pytest-jsonschema/)
 
-[![Tests](https://github.com/collective/pytest-jsonschema/actions/workflows/meta.yml/badge.svg)](https://github.com/collective/pytest-jsonschema/actions/workflows/main.yml)
+[![Tests](https://github.com/collective/pytest-jsonschema/actions/workflows/code.yml/badge.svg)](https://github.com/collective/pytest-jsonschema/actions/workflows/code.yml)
+[![Linters](https://github.com/collective/pytest-jsonschema/actions/workflows/lint.yml/badge.svg)](https://github.com/collective/pytest-jsonschema/actions/workflows/lint.yml)
 ![Code Style](https://img.shields.io/badge/Code%20Style-Black-000000)
 
 [![GitHub contributors](https://img.shields.io/github/contributors/collective/pytest-jsonschema)](https://github.com/collective/pytest-jsonschema)
