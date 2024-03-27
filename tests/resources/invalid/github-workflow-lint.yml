@@ -1,0 +1,7 @@
+name: Codebase lint
+
+jobs:
+  test:
+    on: ubuntu-latest
+
+    steps:

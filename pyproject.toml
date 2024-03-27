@@ -1,0 +1,102 @@
+[build-system]
+requires = [
+  "setuptools>=61.0.0",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pytest-jsonschema"
+description = "A pytest plugin to perform JSONSchema validations"
+version = "0.1.0"
+readme = "README.md"
+requires-python = ">=3.8"
+authors = [
+    { name = "Érico Andrei", email = "ericof@plone.org" },
+]
+maintainers = [
+    { name = "Érico Andrei", email = "ericof@plone.org" },
+]
+keywords = [
+    "pytest",
+    "testing",
+]
+license = {file = "LICENSE"}
+classifiers = [
+    "Framework :: Pytest",
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Testing",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "License :: OSI Approved :: MIT License",
+]
+dependencies = [
+    "pytest>=6.2.0",
+    "ruamel.yaml",
+    "jsonschema",
+    "tomli==2.0.1 ; python_version<='3.11'"
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest-cov",
+    "pre-commit",
+    "tox"
+]
+
+[project.urls]
+Repository = "https://github.com/collective/pytest-jsonschema"
+[project.entry-points.pytest11]
+jsonschema = "pytest_jsonschema.fixtures"
+
+[tool.isort]
+profile = "plone"
+
+[tool.black]
+target-version = ["py38"]
+
+[tool.codespell]
+ignore-words-list = "discreet,vew"
+skip = "*.po,*.min.js,*.json"
+
+[tool.towncrier]
+filename = "CHANGELOG.md"
+directory = "news/"
+title_format = "## {version} ({project_date})"
+underlines = ["", "", ""]
+template = "./docs/towncrier_template.jinja"
+start_string = "<!-- towncrier release notes start -->\n"
+issue_format = "[#{issue}](https://github.com/collective/pytest-jsonschema/issue/{issue})"
+
+[[tool.towncrier.type]]
+directory = "breaking"
+name = "Breaking"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "feature"
+name = "Feature"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "bugfix"
+name = "Bugfix"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "internal"
+name = "Internal"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "documentation"
+name = "Documentation"
+showcontent = true
