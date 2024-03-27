@@ -3,55 +3,107 @@
 <div align="center">
 
 [![PyPI](https://img.shields.io/pypi/v/pytest-jsonschema)](https://pypi.org/project/pytest-jsonschema/)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pytest-jsonschema)](https://pypi.org/project/pytest-jsonschema/)
-[![PyPI - Wheel](https://img.shields.io/pypi/wheel/pytest-jsonschema)](https://pypi.org/project/pytest-jsonschema/)
-[![PyPI - License](https://img.shields.io/pypi/l/pytest-jsonschema)](https://pypi.org/project/pytest-jsonschema/)
-[![PyPI - Status](https://img.shields.io/pypi/status/pytest-jsonschema)](https://pypi.org/project/pytest-jsonschema/)
-
-
-[![PyPI - Plone Versions](https://img.shields.io/pypi/frameworkversions/plone/pytest-jsonschema)](https://pypi.org/project/pytest-jsonschema/)
-
+[![Python Version](https://img.shields.io/pypi/pyversions/pytest-jsonschema)](https://pypi.org/project/pytest-jsonschema/)
+[![Wheel](https://img.shields.io/pypi/wheel/pytest-jsonschema)](https://pypi.org/project/pytest-jsonschema/)
+[![License](https://img.shields.io/pypi/l/pytest-jsonschema)](https://pypi.org/project/pytest-jsonschema/)
+[![Status](https://img.shields.io/pypi/status/pytest-jsonschema)](https://pypi.org/project/pytest-jsonschema/)
 [![Tests](https://github.com/collective/pytest-jsonschema/actions/workflows/code.yml/badge.svg)](https://github.com/collective/pytest-jsonschema/actions/workflows/code.yml)
 [![Linters](https://github.com/collective/pytest-jsonschema/actions/workflows/lint.yml/badge.svg)](https://github.com/collective/pytest-jsonschema/actions/workflows/lint.yml)
-![Code Style](https://img.shields.io/badge/Code%20Style-Black-000000)
+![Code Style](https://img.shields.io/badge/code%20style-black-000000.svg)
+[![Contributors](https://img.shields.io/github/contributors/collective/pytest-jsonschema)](https://github.com/collective/pytest-jsonschema/graphs/contributors)
+[![Stars](https://img.shields.io/github/stars/collective/pytest-jsonschema?style=social)](https://github.com/collective/pytest-jsonschema/stargazers)
 
-[![GitHub contributors](https://img.shields.io/github/contributors/collective/pytest-jsonschema)](https://github.com/collective/pytest-jsonschema)
-[![GitHub Repo stars](https://img.shields.io/github/stars/collective/pytest-jsonschema?style=social)](https://github.com/collective/pytest-jsonschema)
 </div>
 
-**pytest-jsonschema** is a [pytest](https://docs.pytest.org) plugin providing fixtures to perform JSONSchema validations.
+**pytest-jsonschema** is a plugin for [pytest](https://docs.pytest.org) designed to facilitate JSON Schema validations within your test suites. This tool enables you to validate JSON files, strings, and Python objects against predefined JSON Schemas, ensuring your data adheres to expected formats.
 
-Features
---------
+## Installation
 
-* TODO
+Install **pytest-jsonschema** using pip from PyPI:
 
+```bash
+pip install pytest-jsonschema
+```
 
-Requirements
-------------
+## Features & Usage
 
-* TODO
+The package introduces three pytest fixtures for validating JSON data:
 
+### `schema_validate_file`
 
-Installation
-------------
+Validates a JSON file located in your test suite directory:
 
-You can install "pytest-jsonschema" via `pip`_ from `PyPI`_::
+```python
+from pathlib import Path
 
-    $ pip install pytest-jsonschema
+def test_package_json_is_valid(schema_validate_file):
+    path = Path("package.json")
+    assert schema_validate_file(path=path, schema_name="package")
+```
 
+### `schema_validate_string`
 
-Usage
------
+Validates a JSON string:
 
-* TODO
+```python
+from pathlib import Path
 
-Contributing
-------------
-Contributions are very welcome. Tests can be run with `tox`_, please ensure
-the coverage at least stays the same before you submit a pull request.
+def test_package_json_is_valid(schema_validate_string):
+    data = Path("package.json").read_text()
+    assert schema_validate_string(data=data, schema_name="package", file_type="json")
+```
 
-License
--------
+### `schema_validate`
 
-Distributed under the terms of the `MIT`_ license, "pytest-jsonschema" is free and open source software
+Validates a Python dictionary representing JSON data:
+
+```python
+import json
+from pathlib import Path
+
+def test_package_json_is_valid(schema_validate):
+    data = json.loads(Path("package.json").read_text())
+    assert schema_validate(data=data, schema_name="package")
+```
+
+## Requirements
+
+- pytest >= 6.2.0
+
+## Contributing
+
+To contribute to **pytest-jsonschema**, please follow these steps:
+
+1. Clone the repository:
+
+```bash
+git clone git@github.com:collective/pytest-jsonschema.git
+```
+
+2. Install the package for development:
+
+```bash
+make install
+```
+
+3. Format the codebase:
+
+```bash
+make format
+```
+
+4. Run tests:
+- To run all tests:
+  ```
+  make test
+  ```
+- To stop on the first error and open a pdb session:
+  ```
+  make debug-test
+  ```
+
+Testing is conducted using [`pytest`](https://docs.pytest.org/en/stable/) and [`tox`](https://tox.readthedocs.io/en/latest/).
+
+## License 📜
+
+**pytest-jsonschema** is licensed under the [MIT License](./LICENSE).
