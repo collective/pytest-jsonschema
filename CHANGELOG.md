@@ -8,6 +8,18 @@
 
 <!-- towncrier release notes start -->
 
+## 1.0.0a2 (2024-03-27)
+
+
+### Bugfix
+
+- Add MANIFEST.in file [@ericof] [#5](https://github.com/collective/pytest-jsonschema/issue/5)
+
+
+### Documentation
+
+- Improve README.md with usage information [@ericof] [#4](https://github.com/collective/pytest-jsonschema/issue/4)
+
 ## 1.0.0a1 (2024-03-27)
 
 
