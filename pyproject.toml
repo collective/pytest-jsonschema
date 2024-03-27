@@ -7,7 +7,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "pytest-jsonschema"
 description = "A pytest plugin to perform JSONSchema validations"
-version = "1.0.0a2"
+version = "1.0.0a3.dev0"
 readme = "README.md"
 requires-python = ">=3.8"
 authors = [
