@@ -1,10 +1,9 @@
 from pathlib import Path
 from typing import Protocol
-from typing import TypeAlias
 from typing import Union
 
 
-StrPath: TypeAlias = Union[str, Path]
+StrPath = Union[str, Path]
 DataStructure = Union[dict, list]
 
 

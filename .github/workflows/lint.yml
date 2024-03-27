@@ -26,5 +26,5 @@ jobs:
       - name: Install tox
         run: pip install tox
 
-      - name: Test
+      - name: Lint Codebase
         run: tox -e lint
