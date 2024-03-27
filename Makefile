@@ -34,6 +34,10 @@ bin/pip bin/tox:
 	if [ -d $(GIT_FOLDER) ]; then bin/pre-commit install; else echo "$(RED) Not installing pre-commit$(RESET)";fi
 
 
+bin/fullrelease: bin/pip
+	@echo "$(GREEN)==> Install zest.releaser $(RESET)"
+	bin/pip install -e ".[release]"
+
 .PHONY: install
 install: bin/pip ## Install package
 
@@ -60,3 +64,9 @@ test: bin/tox ## run tests
 .PHONY: test-coverage
 test-coverage: bin/tox ## run tests with coverage
 	bin/tox -e coverage
+
+# Release
+.PHONY: release
+release: bin/fullrelease ## Start Release
+	@echo "$(GREEN)==> Start Release$(RESET)"
+	bin/fullrelease

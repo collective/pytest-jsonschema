@@ -42,14 +42,18 @@ dependencies = [
     "pytest>=6.2.0",
     "ruamel.yaml",
     "jsonschema",
-    "tomli==2.0.1 ; python_version<='3.11'"
+    "tomli==2.0.1 ; python_version<='3.11'",
 ]
 
 [project.optional-dependencies]
+release = [
+    "zest.releaser[recommended]",
+    "zestreleaser.towncrier",
+]
 test = [
     "pytest-cov",
     "pre-commit",
-    "tox"
+    "tox",
 ]
 
 [project.urls]
