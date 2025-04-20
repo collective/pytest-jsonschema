@@ -7,9 +7,7 @@
 [![Wheel](https://img.shields.io/pypi/wheel/pytest-jsonschema)](https://pypi.org/project/pytest-jsonschema/)
 [![License](https://img.shields.io/pypi/l/pytest-jsonschema)](https://pypi.org/project/pytest-jsonschema/)
 [![Status](https://img.shields.io/pypi/status/pytest-jsonschema)](https://pypi.org/project/pytest-jsonschema/)
-[![Tests](https://github.com/collective/pytest-jsonschema/actions/workflows/code.yml/badge.svg)](https://github.com/collective/pytest-jsonschema/actions/workflows/code.yml)
-[![Linters](https://github.com/collective/pytest-jsonschema/actions/workflows/lint.yml/badge.svg)](https://github.com/collective/pytest-jsonschema/actions/workflows/lint.yml)
-![Code Style](https://img.shields.io/badge/code%20style-black-000000.svg)
+[![Tests / QA](https://github.com/collective/pytest-jsonschema/actions/workflows/ci.yml/badge.svg)](https://github.com/collective/pytest-jsonschema/actions/workflows/ci.yml)
 [![Contributors](https://img.shields.io/github/contributors/collective/pytest-jsonschema)](https://github.com/collective/pytest-jsonschema/graphs/contributors)
 [![Stars](https://img.shields.io/github/stars/collective/pytest-jsonschema?style=social)](https://github.com/collective/pytest-jsonschema/stargazers)
 
@@ -19,7 +17,7 @@
 
 ## Installation
 
-Install **pytest-jsonschema** using pip from PyPI:
+Install **pytest-jsonschema** using pip / uv from PyPI:
 
 ```bash
 pip install pytest-jsonschema
@@ -94,15 +92,15 @@ make format
 
 4. Run tests:
 - To run all tests:
-  ```
-  make test
+  ```bash
+  uv run pytest
   ```
 - To stop on the first error and open a pdb session:
   ```
-  make debug-test
+  uv run pytest -x --pdb
   ```
 
-Testing is conducted using [`pytest`](https://docs.pytest.org/en/stable/) and [`tox`](https://tox.readthedocs.io/en/latest/).
+Testing is conducted using [`pytest`](https://docs.pytest.org/en/stable/).
 
 ## License 📜
 

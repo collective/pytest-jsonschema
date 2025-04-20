@@ -67,16 +67,18 @@ def test_schema_validate_string(
 @pytest.mark.parametrize(
     "base_path,schema_name,expected",
     [
-        ["valid/github-workflow-changelog.yml", "github-workflow", True],
-        ["valid/github-workflow-code.yml", "github-workflow", True],
-        ["valid/github-workflow-lint.yml", "github-workflow", True],
-        ["valid/package.json", "package", True],
-        ["valid/tsconfig.json", "tsconfig", True],
         ["invalid/github-workflow-changelog.yml", "github-workflow", False],
         ["invalid/github-workflow-code.yml", "github-workflow", False],
         ["invalid/github-workflow-lint.yml", "github-workflow", False],
         ["invalid/package.json", "package", False],
+        ["invalid/pyproject.toml", "pyproject", False],
         ["invalid/tsconfig.json", "tsconfig", False],
+        ["valid/github-workflow-changelog.yml", "github-workflow", True],
+        ["valid/github-workflow-code.yml", "github-workflow", True],
+        ["valid/github-workflow-lint.yml", "github-workflow", True],
+        ["valid/package.json", "package", True],
+        ["valid/pyproject.toml", "pyproject", True],
+        ["valid/tsconfig.json", "tsconfig", True],
     ],
 )
 def test_schema_validate(pytester, resources_folder, base_path, schema_name, expected):
