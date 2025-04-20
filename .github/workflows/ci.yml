@@ -100,46 +100,11 @@ jobs:
         - name: Run tests
           run: make test
 
-  coverage:
-    runs-on: ubuntu-latest
-    needs:
-      - test
-    steps:
-        - name: Checkout
-          uses: actions/checkout@v4
-
-        - name: Install the latest version of uv
-          uses: astral-sh/setup-uv@v5
-          with:
-            python-version: ${{ env.PYTHON_VERSION }}
-            enable-cache: false
-
-        - name: Restore uv cache
-          uses: actions/cache@v4
-          with:
-            path: /tmp/.uv-cache
-            key: uv-${{ runner.os }}-${{ env.PYTHON_VERSION }}-${{ hashFiles('uv.lock') }}
-            restore-keys: |
-              uv-${{ runner.os }}-${{ env.PYTHON_VERSION }}-${{ hashFiles('uv.lock') }}
-              uv-${{ runner.os }}-${{ env.PYTHON_VERSION }}
-
-        - name: Install Plone and package
-          run: make install
-
-        - name: Run tests
-          run: make test-coverage
-
-        - name: Report Coverage
-          run: |
-            echo "# Coverage Report" >> $GITHUB_STEP_SUMMARY
-            echo "$(uv run coverage report --format markdown)" >> $GITHUB_STEP_SUMMARY
-
   report:
     runs-on: ubuntu-latest
     needs:
       - lint
       - test
-      - coverage
     steps:
 
       - name: Report
@@ -150,4 +115,3 @@ jobs:
           echo '| --- | --- |' >> $GITHUB_STEP_SUMMARY
           echo '| Lint | ✅ |' >> $GITHUB_STEP_SUMMARY
           echo '| Test | ✅ |' >> $GITHUB_STEP_SUMMARY
-          echo '| Coverage | ✅ |' >> $GITHUB_STEP_SUMMARY
