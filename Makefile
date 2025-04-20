@@ -15,10 +15,21 @@ GREEN=`tput setaf 2`
 RESET=`tput sgr0`
 YELLOW=`tput setaf 3`
 
-CUR_FOLDER=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
-GIT_FOLDER=$(CUR_FOLDER)/.git
+# Python checks
+UV?=uv
 
-all: install
+# installed?
+ifeq (, $(shell which $(UV) ))
+  $(error "UV=$(UV) not found in $(PATH)")
+endif
+
+BACKEND_FOLDER=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
+
+VENV_FOLDER=$(BACKEND_FOLDER)/.venv
+BIN_FOLDER=$(VENV_FOLDER)/bin
+
+
+all: build
 
 # Add the following 'help' target to your Makefile
 # And add help text after each target name starting with '\#\#'
@@ -26,47 +37,89 @@ all: install
 help: ## This help message
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-bin/pip bin/tox:
-	@echo "$(GREEN)==> Setup Virtual Env$(RESET)"
-	python3 -m venv .
-	bin/pip install -U "pip" "pipx"
-	bin/pip install -e ".[test]"
-	if [ -d $(GIT_FOLDER) ]; then bin/pre-commit install; else echo "$(RED) Not installing pre-commit$(RESET)";fi
 
+############################################
+# Install
+############################################
 
-bin/fullrelease: bin/pip
-	@echo "$(GREEN)==> Install zest.releaser $(RESET)"
-	bin/pip install -e ".[release]"
+$(VENV_FOLDER):  ## Install dependencies
+	@echo "$(GREEN)==> Install environment$(RESET)"
+	@uv sync
+
+.PHONY: sync
+sync: $(VENV_FOLDER) ## Sync project dependencies
+	@echo "$(GREEN)==> Sync project dependencies$(RESET)"
+	@uv sync
 
 .PHONY: install
-install: bin/pip ## Install package
+install: $(VENV_FOLDER) ## Install Plone and dependencies
 
 .PHONY: clean
-clean: ## Remove old virtualenv and creates a new one
+clean: ## Clean installation
 	@echo "$(RED)==> Cleaning environment and build$(RESET)"
-	rm -rf bin lib lib64 include share etc var inituser pyvenv.cfg .installed.cfg instance .tox .pytest_cache
+	@rm -rf $(VENV_FOLDER) pyvenv.cfg .installed.cfg .venv .pytest_cache .ruff_cache constraints* requirements*
 
-.PHONY: format
-format: bin/tox ## Format the codebase according to our standards
-	@echo "$(GREEN)==> Format codebase$(RESET)"
-	bin/tox -e format
+############################################
+# QA
+############################################
+.PHONY: mypy
+mypy: ## Type checking
+	@echo "$(GREEN)==> Run mypy$(RESET)"
+	@uv run mypy src
 
 .PHONY: lint
-lint: ## check code style
+lint: ## Check and fix code base according to Plone standards
 	@echo "$(GREEN)==> Lint codebase$(RESET)"
-	bin/tox -e lint
+	@uvx ruff@latest check --fix --config $(BACKEND_FOLDER)/pyproject.toml
+	@uvx pyroma@latest -d .
+	@uvx check-python-versions@latest .
+	@uvx zpretty@latest --check src
+	@uv run mypy src
 
+.PHONY: format
+format: ## Check and fix code base according to Plone standards
+	@echo "$(GREEN)==> Format codebase$(RESET)"
+	@uvx ruff@latest check --select I --fix --config $(BACKEND_FOLDER)/pyproject.toml
+	@uvx ruff@latest format --config $(BACKEND_FOLDER)/pyproject.toml
+	@uvx zpretty@latest -i src
+
+.PHONY: check
+check: format lint ## Check and fix code base according to Plone standards
+
+############################################
+# Update schemas
+############################################
+.PHONY: update-schemas
+update-schemas: ## Update existing schemas
+	@echo "$(GREEN)==> Update existing schemas$(RESET)"
+	@uv run python src/pytest_jsonschema/utils/update_schema.py
+
+############################################
 # Tests
+############################################
 .PHONY: test
-test: bin/tox ## run tests
-	bin/tox -e test
+test: $(VENV_FOLDER) ## run tests
+	@uv run pytest
 
 .PHONY: test-coverage
-test-coverage: bin/tox ## run tests with coverage
-	bin/tox -e coverage
+test-coverage: $(VENV_FOLDER) ## run tests with coverage
+	@uv run coverage run --source=pytest_jsonschema --module pytest --cov-report term-missing
+	@uv run coverage report --format markdown
 
+############################################
 # Release
+############################################
+.PHONY: changelog
+changelog: ## Release the package to pypi.org
+	@echo "🚀 Display the draft for the changelog"
+	@uv run towncrier --draft
+
 .PHONY: release
-release: bin/fullrelease ## Start Release
-	@echo "$(GREEN)==> Start Release$(RESET)"
-	bin/fullrelease
+release: ## Release the package to pypi.org
+	@echo "🚀 Release package"
+	@uv run prerelease
+	@uv run release
+	@rm -Rf dist
+	@uv build
+	@uv publish
+	@uv run postrelease
