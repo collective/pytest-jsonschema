@@ -8,6 +8,13 @@
 
 <!-- towncrier release notes start -->
 
+## 1.0.0b1 (2025-04-20)
+
+
+### Internal:
+
+- Modernize package, improve mypy support @ericof 
+
 ## 1.0.0a2 (2024-03-27)
 
 
