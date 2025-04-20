@@ -23,11 +23,11 @@ def schema_validate_file() -> types.FileValidator:
 def schema_validate_string() -> types.StrValidator:
     """Validate a string againstt a known JSON Schema."""
 
-    def func(raw_data: str, schema_name: str, file_type: str = "") -> bool:
+    def func(data: str, schema_name: str, file_type: str = "") -> bool:
         """Validate a string against a known JSON Schema."""
-        data = loaders.data_from_string(raw_data, file_type=file_type)
+        parsed = loaders.data_from_string(data, file_type=file_type)
         schema = schemas.load(schema_name)
-        return validator.validate(data, schema)
+        return validator.validate(parsed, schema)
 
     return func
 

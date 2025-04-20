@@ -13,9 +13,7 @@ class FileValidator(Protocol):
 
 
 class StrValidator(Protocol):
-    def __call__(
-        self, raw_data: str, schema_name: str, file_type: str = ""
-    ) -> bool: ...
+    def __call__(self, data: str, schema_name: str, file_type: str = "") -> bool: ...
 
 
 class Validator(Protocol):
