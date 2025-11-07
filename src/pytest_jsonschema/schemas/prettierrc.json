@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://json.schemastore.org/prettierrc.json",
+  "$id": "https://www.schemastore.org/prettierrc.json",
   "definitions": {
     "optionsDefinition": {
       "type": "object",
@@ -31,6 +31,11 @@
         "bracketSpacing": {
           "description": "Print spaces between brackets.",
           "default": true,
+          "type": "boolean"
+        },
+        "checkIgnorePragma": {
+          "description": "Check whether the file's first docblock comment contains '@noprettier' or '@noformat' to determine if it should be formatted.",
+          "default": false,
           "type": "boolean"
         },
         "cursorOffset": {
@@ -313,6 +318,12 @@
               "description": "Lightning Web Components"
             },
             {
+              "enum": [
+                "mjml"
+              ],
+              "description": "MJML"
+            },
+            {
               "type": "string",
               "description": "Custom parser"
             }
@@ -390,7 +401,7 @@
           "type": "integer"
         },
         "requirePragma": {
-          "description": "Require either '@prettier' or '@format' to be present in the file's first docblock comment\nin order for it to be formatted.",
+          "description": "Require either '@prettier' or '@format' to be present in the file's first docblock comment in order for it to be formatted.",
           "default": false,
           "type": "boolean"
         },
