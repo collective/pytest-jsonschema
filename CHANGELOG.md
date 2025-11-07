@@ -8,6 +8,18 @@
 
 <!-- towncrier release notes start -->
 
+## 1.0.0 (2025-11-07)
+
+
+### New features:
+
+- Update schemas. @ericof 
+
+
+### Bug fixes:
+
+- The host json.schemastore.org has been changed to www.schemastore.org. @ericof [#8](https://github.com/collective/pytest-jsonschema/issues/8)
+
 ## 1.0.0b1 (2025-04-20)
 
 
