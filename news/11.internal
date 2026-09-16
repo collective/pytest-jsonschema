@@ -1,0 +1,1 @@
+Modernized GitHub Actions workflows: bumped `actions/checkout` to v7 and `astral-sh/setup-uv` to v7, replaced the non-functional manual `actions/cache` step with `setup-uv`'s built-in caching, and added a `workflow_dispatch` trigger. @ericof
