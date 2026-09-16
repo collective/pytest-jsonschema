@@ -8,7 +8,7 @@ import pytest
 
 @pytest.fixture
 def schema_validate_file() -> types.FileValidator:
-    """Validate a file againstt a known JSON Schema."""
+    """Validate a file against a known JSON Schema."""
 
     def func(path: types.StrPath, schema_name: str, file_type: str = "") -> bool:
         """Validate a file against a known JSON Schema."""
@@ -21,7 +21,7 @@ def schema_validate_file() -> types.FileValidator:
 
 @pytest.fixture
 def schema_validate_string() -> types.StrValidator:
-    """Validate a string againstt a known JSON Schema."""
+    """Validate a string against a known JSON Schema."""
 
     def func(data: str, schema_name: str, file_type: str = "") -> bool:
         """Validate a string against a known JSON Schema."""
@@ -34,10 +34,10 @@ def schema_validate_string() -> types.StrValidator:
 
 @pytest.fixture
 def schema_validate() -> types.Validator:
-    """Validate a string againstt a known JSON Schema."""
+    """Validate a data structure against a known JSON Schema."""
 
     def func(data: types.DataStructure, schema_name: str) -> bool:
-        """Validate a file against a known JSON Schema."""
+        """Validate a data structure against a known JSON Schema."""
         schema = schemas.load(schema_name)
         return validator.validate(data, schema)
 
