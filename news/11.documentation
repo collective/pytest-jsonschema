@@ -1,0 +1,1 @@
+Reworked the README: documented every bundled schema and the supported file formats, warned that `schema_validate_string` needs an explicit `file_type`, added uv install instructions, and expanded the contributing section. @ericof
