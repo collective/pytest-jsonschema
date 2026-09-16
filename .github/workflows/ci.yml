@@ -17,7 +17,7 @@ jobs:
           uses: actions/checkout@v7
 
         - name: Install the latest version of uv
-          uses: astral-sh/setup-uv@v7
+          uses: astral-sh/setup-uv@v10.1.0
           with:
             python-version: ${{ env.PYTHON_VERSION }}
             cache-python: true
@@ -87,7 +87,7 @@ jobs:
           uses: actions/checkout@v7
 
         - name: Install the latest version of uv
-          uses: astral-sh/setup-uv@v7
+          uses: astral-sh/setup-uv@v10.1.0
           with:
             python-version: ${{ env.PYTHON_VERSION }}
             cache-python: true
