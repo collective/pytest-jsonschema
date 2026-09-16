@@ -1,0 +1,1 @@
+Added tests validating the repository's own `pyproject.toml` and GitHub Actions workflows against the bundled schemas. @ericof
