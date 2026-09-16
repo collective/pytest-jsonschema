@@ -1,0 +1,46 @@
+spec_version = "2"
+
+[repository]
+name = "acme-site"
+changelog = "CHANGELOG.md"
+version = "version.txt"
+compose = ["docker-compose.yml"]
+
+[repository.towncrier]
+section = "Project"
+settings = "towncrier.toml"
+
+[[package]]
+type = "python-plone"
+primary = true
+name = "acme.core"
+path = "backend"
+changelog = "backend/CHANGELOG.md"
+towncrier_settings = "backend/pyproject.toml"
+base_package = "Products.CMFPlone"
+publish = true
+
+[[package]]
+type = "python-plone"
+name = "acme.theme"
+path = "backend/sources/acme.theme"
+changelog = "backend/sources/acme.theme/CHANGELOG.md"
+towncrier_settings = "backend/sources/acme.theme/pyproject.toml"
+publish = true
+
+[[package]]
+type = "node-volto"
+primary = true
+name = "@acme/volto-core"
+path = "frontend/packages/volto-core"
+changelog = "frontend/packages/volto-core/CHANGELOG.md"
+towncrier_settings = "frontend/packages/volto-core/towncrier.toml"
+publish = true
+
+[[package]]
+type = "node-volto"
+name = "@acme/volto-theme"
+path = "frontend/packages/volto-theme"
+changelog = "frontend/packages/volto-theme/CHANGELOG.md"
+towncrier_settings = "frontend/packages/volto-theme/towncrier.toml"
+publish = true

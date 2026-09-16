@@ -1,0 +1,1 @@
+Covered the TOML file and string paths, which previously had no tests: `pyproject.toml` is now exercised through `schema_validate_file` and `schema_validate_string` as well as `schema_validate`. @ericof

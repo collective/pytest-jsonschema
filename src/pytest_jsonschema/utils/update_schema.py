@@ -34,6 +34,14 @@ SCHEMAS = (
     ("pre-commit-hooks", "https://www.schemastore.org/pre-commit-hooks.json"),
     ("prettierrc", "https://www.schemastore.org/prettierrc.json"),
     ("pyproject", "https://www.schemastore.org/pyproject.json"),
+    (
+        "repository-v1",
+        "https://raw.githubusercontent.com/plone/repoplone/main/src/repoplone/schemas/repository-v1.json",
+    ),
+    (
+        "repository-v2",
+        "https://raw.githubusercontent.com/plone/repoplone/main/src/repoplone/schemas/repository-v2.json",
+    ),
     ("tsconfig", "https://www.schemastore.org/tsconfig.json"),
 )
 
