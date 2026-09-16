@@ -3,18 +3,11 @@ name = "pytest-jsonschema"
 description = "A pytest plugin to perform JSONSchema validations"
 dynamic = ["version"]
 readme = "README.md"
-license = {file = "LICENSE"}
+license = { file = "LICENSE" }
 requires-python = ">=3.10"
-authors = [
-    { name = "Érico Andrei", email = "ericof@plone.org" },
-]
-maintainers = [
-    { name = "Érico Andrei", email = "ericof@plone.org" },
-]
-keywords = [
-    "pytest",
-    "testing",
-]
+authors = [{ name = "Érico Andrei", email = "ericof@plone.org" }]
+maintainers = [{ name = "Érico Andrei", email = "ericof@plone.org" }]
+keywords = ["pytest", "testing"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Framework :: Pytest",
@@ -74,9 +67,7 @@ build-backend = "hatchling.build"
 strict-naming = true
 
 [tool.hatch.build.targets.sdist]
-exclude = [
-  "/.github",
-]
+exclude = ["/.github", "/.claude"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/pytest_jsonschema"]
@@ -142,7 +133,8 @@ lint.select = [
     # mccabe
     "C90",
     # pycodestyle
-    "E", "W",
+    "E",
+    "W",
     # pyflakes
     "F",
     # pygrep-hooks
@@ -156,9 +148,7 @@ lint.ignore = [
     # DoNotAssignLambda
     "E731",
 ]
-lint.exclude = [
-    "tests/resources/invalid/*"
-]
+lint.exclude = ["tests/resources/invalid/*"]
 
 [tool.ruff.lint.isort]
 case-sensitive = false
@@ -185,13 +175,11 @@ md_report_color = "auto"
 source_pkgs = ["pytest_jsonschema"]
 branch = true
 parallel = true
-omit = [
-    "src/pytest_jsonschema/utils/update_schema.py"
-]
+omit = ["src/pytest_jsonschema/utils/update_schema.py"]
 
 [tool.mypy]
 ignore_missing_imports = true
 
 [tool.zest-releaser]
-upload-pypi = false # Build and upload with uv
+upload-pypi = false                                            # Build and upload with uv
 python-file-with-version = "src/pytest_jsonschema/__init__.py"

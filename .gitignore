@@ -43,3 +43,5 @@ var/
 constraints*.txt
 requirements*.txt
 .coverage*
+
+.claude/
