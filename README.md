@@ -129,7 +129,26 @@ Pass one of these as `schema_name`:
 | `pre-commit-hooks` | `.pre-commit-hooks.yaml` | [SchemaStore](https://www.schemastore.org/) |
 | `prettierrc` | `.prettierrc` | [SchemaStore](https://www.schemastore.org/) |
 | `pyproject` | `pyproject.toml` | [SchemaStore](https://www.schemastore.org/) |
+| `repository-v1` | `repository.toml`, spec 1 | [repoplone](https://github.com/plone/repoplone) |
+| `repository-v2` | `repository.toml`, spec 2 | [repoplone](https://github.com/plone/repoplone) |
 | `tsconfig` | `tsconfig.json` | [SchemaStore](https://www.schemastore.org/) |
+
+`repository.toml` has two specifications, and they are not interchangeable: a file
+without a `spec_version` key, or with `spec_version = "1"`, is spec 1 and declares
+packages as `[backend.package]` / `[frontend.package]` tables; `spec_version = "2"`
+declares them as a flat `[[package]]` array. Pick the schema that matches the file:
+
+```python
+from pathlib import Path
+from pytest_jsonschema.loaders import data_from_file
+
+
+def test_repository_toml_is_valid(schema_validate_file):
+    path = Path("repository.toml")
+    spec = str(data_from_file(path).get("spec_version", "1"))
+    schema_name = "repository-v2" if spec.startswith("2") else "repository-v1"
+    assert schema_validate_file(path=path, schema_name=schema_name)
+```
 
 The bundled copies are refreshed with `make update-schemas`.
 

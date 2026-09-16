@@ -1,0 +1,12 @@
+# Spec 1 declares packages as [backend.package] / [frontend.package] tables.
+# The flat [[package]] array belongs to spec 2, and spec 1 rejects it.
+[repository]
+name = "acme-site"
+changelog = "CHANGELOG.md"
+version = "version.txt"
+
+[[package]]
+type = "python-plone"
+name = "acme.core"
+path = "backend"
+changelog = "backend/CHANGELOG.md"
